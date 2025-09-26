@@ -1,19 +1,21 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// ------------------ Build Inverted Index ------------------ //
+// ------------------ Build Inverted Index from Conflated Files ------------------ //
 unordered_map<string, set<int>> buildInvertedIndex(const vector<string> &files) {
     unordered_map<string, set<int>> invertedIndex;
 
     for (int i = 0; i < files.size(); i++) {
         ifstream in(files[i]);
         string word;
-        while (in >> word) {
-            // remove punctuation, lowercase
-            word.erase(remove_if(word.begin(), word.end(), ::ispunct), word.end());
+        char colon;
+        int freq;
+
+        while (in >> word >> colon >> freq) {
+            // normalize word
             transform(word.begin(), word.end(), word.begin(), ::tolower);
 
-            if (!word.empty()) {
+            if (!word.empty() && freq > 0) {
                 invertedIndex[word].insert(i+1); // doc IDs are 1-based
             }
         }
@@ -24,7 +26,7 @@ unordered_map<string, set<int>> buildInvertedIndex(const vector<string> &files) 
 
 // ------------------ Print Index File ------------------ //
 void printIndex(const unordered_map<string, set<int>> &index) {
-    cout << "===== Inverted Index =====\n\n";
+    cout << "===== Inverted Index (from Conflated Files) =====\n\n";
     for (auto &entry : index) {
         cout << entry.first << " -> { ";
         for (int docId : entry.second) cout << "doc" << docId << " ";
@@ -40,7 +42,6 @@ void processQuery(const unordered_map<string, set<int>> &index) {
     cin >> query;
 
     // normalize
-    query.erase(remove_if(query.begin(), query.end(), ::ispunct), query.end());
     transform(query.begin(), query.end(), query.begin(), ::tolower);
 
     if (index.find(query) != index.end()) {

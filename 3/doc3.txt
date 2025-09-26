@@ -1,1 +1,5 @@
-cricket sport student play
+cricket : 3
+student : 1
+play : 2
+sport : 2
+india : 1
