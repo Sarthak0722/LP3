@@ -1,0 +1,5 @@
+teacher : 2
+exam : 1
+student : 2
+question : 2
+study : 1

@@ -1,0 +1,4 @@
+football : 2
+play : 3
+sport : 2
+student : 1

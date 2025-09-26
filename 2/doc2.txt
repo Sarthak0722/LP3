@@ -1,0 +1,6 @@
+student : 2
+exam : 3
+paper : 1
+question : 1
+teach : 2
+guide : 1
